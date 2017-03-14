@@ -11,17 +11,14 @@ public class Duombazes_nuskaitymas {
     private Connection connection;
 
     public Duombazes_nuskaitymas() {
-
-    }
-
-    void Duombazes_nuskaitymas() {
         try {
             connection = DriverManager.getConnection(
-                    "jdbc:mysql:localhost:3306/ksc",
+                    "jdbc:mysql://localhost:3306/kcs",
                     "root",
                     ""
             );
         } catch (Exception error) {
+            System.out.print(error);
         }
     }
 
@@ -42,7 +39,7 @@ public class Duombazes_nuskaitymas {
                 Studentu_lentele();
                 break;
             case 2:
-                Studentu_lentele();
+                Studentu_adresu_lentele();
                 break;
             case 3:
                 Studentu_pazymiu_lentele();
@@ -53,14 +50,15 @@ public class Duombazes_nuskaitymas {
     public void Studentu_lentele() {
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `students`.`id`, `students`.`name`, `students`.`surname`");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `students`");
             while (resultSet.next()) {
                 System.out.print(resultSet.getInt("id"));
-                System.out.print("|");
+                System.out.print(" | ");
                 System.out.print(resultSet.getString("name"));
-                System.out.print("|");
-                System.out.print(resultSet.getInt("surname"));
+                System.out.print(" ");
+                System.out.print(resultSet.getString("surname"));
                 System.out.print("");
+                System.out.println();
             }
         } catch (Exception error) {
             System.out.println(error);
@@ -70,14 +68,15 @@ public class Duombazes_nuskaitymas {
     public void Studentu_adresu_lentele() {
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM `student_address`.`student_id`, `student_address`.`street`, `student_address`.`city`, `student_address`.`country`");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `student_address`");
             while (resultSet.next()) {
                 System.out.print(resultSet.getInt("id"));
-                System.out.print("|");
+                System.out.print(" | ");
                 System.out.print(resultSet.getString("street"));
-                System.out.print("|");
+                System.out.print(", ");
                 System.out.print(resultSet.getString("city"));
                 System.out.print("");
+                System.out.println();
             }
         } catch (Exception error) {
             System.out.println(error);
@@ -87,13 +86,15 @@ public class Duombazes_nuskaitymas {
     public void Studentu_pazymiu_lentele() {
         try {
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM 'student_marks'.`student_id`, 'student_marks'.`title`, 'student_marks'.`mark`");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM `student_marks`");
             while (resultSet.next()) {
                 System.out.print(resultSet.getInt("id"));
-                System.out.print("|");
+                System.out.print(" | ");
                 System.out.print(resultSet.getString("title"));
-                System.out.print("|");
+                System.out.print(" ");
                 System.out.print(resultSet.getInt("mark"));
+                System.out.print("");
+                System.out.println();
             }
         } catch (Exception error) {
             System.out.println(error);
